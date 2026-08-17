@@ -30,3 +30,35 @@ COURIER_NOT_FOUND_RESPONSE = {
     'code': 404,
     'message': 'Учетная запись не найдена'
 }
+
+NOT_ENOUGH_DELETE_DATA_RESPONSE = {
+    'code': 400,
+    'message': 'Недостаточно данных для удаления курьера'
+}
+
+COURIER_ID_NOT_FOUND_RESPONSE = {
+    'code': 404,
+    'message': 'Курьера с таким id нет.'
+}
+
+NOT_ENOUGH_SEARCH_DATA_RESPONSE = {
+    'code': 400,
+    'message': 'Недостаточно данных для поиска'
+}
+
+COURIER_ID_DOES_NOT_EXIST_RESPONSE = {
+    'code': 404,
+    'message': 'Курьера с таким id не существует'
+}
+
+ORDER_ID_DOES_NOT_EXIST_RESPONSE = {
+    'code': 404,
+    'message': 'Заказа с таким id не существует'
+}
+
+ORDER_NOT_FOUND_RESPONSE = {
+    'code': 404,
+    'message': 'Заказ не найден'
+}
+
+NONEXISTENT_ID = 999999999
