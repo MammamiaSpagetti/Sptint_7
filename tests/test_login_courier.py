@@ -19,8 +19,10 @@ class TestLoginCourier:
     @allure.title('Созданный курьер может авторизоваться')
     def test_login_courier_success(self, created_courier):
         with allure.step('Подготовить логин и пароль созданного курьера'):
-            login, password, first_name = created_courier
-            payload = {'login': login, 'password': password}
+            payload = {
+                'login': created_courier['login'],
+                'password': created_courier['password']
+            }
 
         with allure.step('Отправить запрос на авторизацию'):
             response = requests.post(LOGIN_COURIER_URL, data=payload)
@@ -42,8 +44,10 @@ class TestLoginCourier:
         empty_field
     ):
         with allure.step(f'Подготовить данные с пустым полем {empty_field}'):
-            login, password, first_name = created_courier
-            payload = {'login': login, 'password': password}
+            payload = {
+                'login': created_courier['login'],
+                'password': created_courier['password']
+            }
             payload[empty_field] = ''
 
         with allure.step('Отправить запрос на авторизацию'):
@@ -56,8 +60,10 @@ class TestLoginCourier:
     @allure.title('Нельзя авторизоваться с неправильным логином')
     def test_login_courier_with_wrong_login(self, created_courier):
         with allure.step('Подготовить неправильный логин'):
-            login, password, first_name = created_courier
-            payload = {'login': f'{login}wrong', 'password': password}
+            payload = {
+                'login': f"{created_courier['login']}wrong",
+                'password': created_courier['password']
+            }
 
         with allure.step('Отправить запрос на авторизацию'):
             response = requests.post(LOGIN_COURIER_URL, data=payload)
@@ -69,8 +75,10 @@ class TestLoginCourier:
     @allure.title('Нельзя авторизоваться с неправильным паролем')
     def test_login_courier_with_wrong_password(self, created_courier):
         with allure.step('Подготовить неправильный пароль'):
-            login, password, first_name = created_courier
-            payload = {'login': login, 'password': f'{password}wrong'}
+            payload = {
+                'login': created_courier['login'],
+                'password': f"{created_courier['password']}wrong"
+            }
 
         with allure.step('Отправить запрос на авторизацию'):
             response = requests.post(LOGIN_COURIER_URL, data=payload)

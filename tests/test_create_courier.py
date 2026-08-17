@@ -27,24 +27,16 @@ class TestCreateCourier:
             assert response.json() == SUCCESS_RESPONSE
 
     @allure.title('Нельзя создать двух одинаковых курьеров')
-    def test_create_duplicate_courier(self, courier_payload):
-        with allure.step('Создать уникального курьера'):
-            first_response = requests.post(
-                CREATE_COURIER_URL,
-                data=courier_payload
-            )
-            assert first_response.status_code == 201
-            assert first_response.json() == SUCCESS_RESPONSE
-
+    def test_create_duplicate_courier(self, created_courier):
         with allure.step('Повторно отправить те же данные'):
-            second_response = requests.post(
+            response = requests.post(
                 CREATE_COURIER_URL,
-                data=courier_payload
+                data=created_courier
             )
 
-        with allure.step('Проверить код и тело второго ответа'):
-            assert second_response.status_code == 409
-            assert second_response.json() == COURIER_ALREADY_EXISTS_RESPONSE
+        with allure.step('Проверить код и тело ответа'):
+            assert response.status_code == 409
+            assert response.json() == COURIER_ALREADY_EXISTS_RESPONSE
 
     @allure.title('Нельзя создать курьера с пустым обязательным полем')
     @pytest.mark.parametrize(

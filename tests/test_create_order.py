@@ -12,20 +12,19 @@ class TestCreateOrder:
 
     @allure.title('Заказ можно создать с разными вариантами цвета')
     @pytest.mark.parametrize(
-        'color',
+        'color_data',
         [
-            ['BLACK'],
-            ['GREY'],
-            ['BLACK', 'GREY'],
-            None
+            {'color': ['BLACK']},
+            {'color': ['GREY']},
+            {'color': ['BLACK', 'GREY']},
+            {}
         ],
         ids=['black', 'grey', 'black_and_grey', 'without_color']
     )
-    def test_create_order_with_different_colors(self, color):
+    def test_create_order_with_different_colors(self, color_data):
         with allure.step('Подготовить данные заказа'):
             payload = ORDER_DATA.copy()
-            if color is not None:
-                payload['color'] = color
+            payload.update(color_data)
 
         with allure.step('Отправить запрос на создание заказа'):
             response = requests.post(CREATE_ORDER_URL, json=payload)
